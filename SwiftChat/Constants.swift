@@ -9,5 +9,6 @@ struct K{
     static let appName = "SwiftChat"
     static let registerSegue = "RegisterToChat"
     static let loginSegue = "LoginToChat"
+    static let cellIdentifier = "ReusableCell"
     
 }
