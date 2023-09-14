@@ -19,4 +19,12 @@ struct K{
         static let bodyField = "body"
         static let dateField = "date"
     }
+    
+    struct Color {
+        static let lightPurple = "LightPurple"
+        static let darkPurple = "DarkPurple"
+        static let black = "Black"
+        static let white = "White"
+    }
+    
 }

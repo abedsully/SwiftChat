@@ -53,6 +53,8 @@ class ChatViewController: UIViewController {
                             
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
+                                let indexPath = IndexPath(row: self.message.count - 1, section: 0)
+                                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
                             }
                         }
                     }
@@ -71,6 +73,11 @@ class ChatViewController: UIViewController {
                 
                 else{
                     print("Successfully sent data")
+                    
+                    DispatchQueue.main.async {
+                        self.messageTextField.text = ""
+                    }
+                    
                 }
             }
         }
@@ -98,8 +105,28 @@ extension ChatViewController: UITableViewDataSource {
     
     // asking which tableview to be displayed in every row of tableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let messages = message[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell // as for cast the cell to be MessageCell
-        cell.label.text = message[indexPath.row].body
+        cell.label.text = messages.body
+        
+        if messages.sender == Auth.auth().currentUser?.email {
+            cell.leftImageView.isHidden = true
+            cell.rightImageView.isHidden = false
+            
+            cell.messageBubble.backgroundColor = UIColor(named: K.Color.lightPurple)
+            cell.label.textColor = UIColor(named: K.Color.black)
+        }
+        
+        else{
+            cell.leftImageView.isHidden = false
+            cell.rightImageView.isHidden = true
+            
+            cell.messageBubble.backgroundColor = UIColor(named: K.Color.darkPurple)
+            cell.label.textColor = UIColor(named: K.Color.white)
+        }
+            
+            
         return cell
     }
     
